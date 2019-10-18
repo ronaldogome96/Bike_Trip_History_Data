@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix , accuracy_score
-from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
 
 #Le o data frame
 base = pd.read_csv('201909-capitalbikeshare-tripdata.csv')
@@ -31,12 +31,12 @@ atributos = scaler.fit_transform(atributos)
 #Divide os dados para treinamento e teste
 atributos_treinamento, atributos_teste, classe_treinamento, classe_teste = train_test_split(atributos, classe, test_size=0.20, random_state=0)
 
-#Naive Bayes
-classificador = GaussianNB()
+#Random Forest
+classificador = RandomForestClassifier(n_estimators = 40, criterion='entropy', random_state=0)
 classificador.fit(atributos_treinamento, classe_treinamento)
 previsoes = classificador.predict(atributos_teste)
 
 #Mostra a precisao
 precisao = accuracy_score(classe_teste, previsoes)
 matriz = confusion_matrix(classe_teste, previsoes)
-#PRECISAO 0.8853
+#PRECISAO 0.9169
