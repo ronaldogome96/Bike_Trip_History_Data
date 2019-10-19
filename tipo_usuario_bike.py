@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix , accuracy_score
-from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
 
 #Le o data frame
 base = pd.read_csv('201909-capitalbikeshare-tripdata.csv')
@@ -31,8 +31,8 @@ atributos = scaler.fit_transform(atributos)
 #Divide os dados para treinamento e teste
 atributos_treinamento, atributos_teste, classe_treinamento, classe_teste = train_test_split(atributos, classe, test_size=0.20, random_state=0)
 
-#Regressao logistica
-classificador = SVC(kernel = 'linear', random_state=1)
+#Redes neurais
+classificador = MLPClassifier(verbose = True, max_iter=1000, tol=0.000010)
 classificador.fit(atributos_treinamento, classe_treinamento)
 previsoes = classificador.predict(atributos_teste)
 
