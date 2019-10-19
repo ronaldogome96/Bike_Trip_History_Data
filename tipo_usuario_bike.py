@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix , accuracy_score
-from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 
 #Le o data frame
 base = pd.read_csv('201909-capitalbikeshare-tripdata.csv')
@@ -32,11 +32,11 @@ atributos = scaler.fit_transform(atributos)
 atributos_treinamento, atributos_teste, classe_treinamento, classe_teste = train_test_split(atributos, classe, test_size=0.20, random_state=0)
 
 #Regressao logistica
-classificador = LogisticRegression()
+classificador = SVC(kernel = 'linear', random_state=1)
 classificador.fit(atributos_treinamento, classe_treinamento)
 previsoes = classificador.predict(atributos_teste)
 
 #Mostra a precisao
 precisao = accuracy_score(classe_teste, previsoes)
 matriz = confusion_matrix(classe_teste, previsoes)
-#PRECISAO 0.8845
+#PRECISAO ??????
